@@ -15,7 +15,57 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     tiles.setTileAt(tiles.getTileLocation(8, 10), sprites.dungeon.floorLight2)
 })
 sprites.onCreated(SpriteKind.Enemy, function (sprite) {
-	
+    animation.runImageAnimation(
+    sprite,
+    [img`
+        . . . f f f f . . . 
+        . . f 1 a c c f . . 
+        . f 1 a a a c c f . 
+        . f a a a a c c c f 
+        f a a a a a c c c f 
+        . f f f f f f f f . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        `,img`
+        . . f f . . . . . . 
+        . f a c f . . . . . 
+        . f 1 c c f . . . . 
+        f 1 a c c f . . . . 
+        f a a a c c f . . . 
+        f a a a c c f . . . 
+        f a a a a c f . . . 
+        . f f f f f . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        `,img`
+        . . . f f . . . . . 
+        . . f c c f . . . . 
+        . f a 1 c c f . . . 
+        . f 1 c c c f . . . 
+        f a a c c c f . . . 
+        f a a a c c f . . . 
+        f a a a c f . . . . 
+        f a a a f . . . . . 
+        . f f f . . . . . . 
+        . . . . . . . . . . 
+        `,img`
+        . . f f f f f f . . 
+        . f 1 a a c c c f . 
+        f 1 a a a a a c c f 
+        f a a a a a c c c f 
+        . f f f f f f f f . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        `],
+    200,
+    true
+    )
+    sprite.setVelocity(0, -70)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.buttonPink, function (sprite, location) {
     tiles.setTileAt(tiles.getTileLocation(1, 14), sprites.dungeon.buttonPinkDepressed)
@@ -210,7 +260,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorLockedNorth, function
 // tiles.placeOnTile(goast10, tiles.getTileLocation(7, 7))
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
     let enemymovement: Sprite[] = []
-    let ghosts: Sprite[] = []
     if (1 == right_key_v) {
         tiles.destroySpritesOfKind(SpriteKind.Key2)
     }
@@ -222,52 +271,27 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
     tiles.placeOnTile(sprite, tiles.getTileLocation(2, 1))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(playerRed)
-    for (let i = 0; i <= 5; i++) {
-        ghosts[i] = sprites.create(img`
-            ........................
-            ........................
-            ........................
-            ........................
-            ..........ffff..........
-            ........ff1111ff........
-            .......fb111111bf.......
-            .......f11111111f.......
-            ......fd11111111df......
-            ......fd11111111df......
-            ......fddd1111dddf......
-            ......fbdbfddfbdbf......
-            ......fcdcf11fcdcf......
-            .......fb111111bf.......
-            ......fffcdb1bdffff.....
-            ....fc111cbfbfc111cf....
-            ....f1b1b1ffff1b1b1f....
-            ....fbfbffffffbfbfbf....
-            .........ffffff.........
-            ...........fff..........
-            ........................
-            ........................
-            ........................
-            ........................
-            `, SpriteKind.Enemy)
-    }
-    tiles.placeOnTile(ghosts[0], tiles.getTileLocation(1, 4))
-    tiles.placeOnTile(ghosts[1], tiles.getTileLocation(1, 7))
-    tiles.placeOnTile(ghosts[2], tiles.getTileLocation(1, 10))
-    tiles.placeOnTile(ghosts[3], tiles.getTileLocation(7, 4))
-    tiles.placeOnTile(ghosts[4], tiles.getTileLocation(7, 7))
-    tiles.placeOnTile(ghosts[5], tiles.getTileLocation(7, 10))
-    for (let i = 0; i <= 16; i++) {
-        enemymovement[i] = sprites.create(img`
+    menymoveplease = 0
+    ghosts = sprites.create(img`
+        . . f f f f . . 
+        . f 1 a c c f . 
+        f 1 a a a c c f 
+        f a a a a c c f 
+        . f f f f f f . 
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(ghosts, tiles.getTileLocation(1, 3))
+    for (let j = 0; j <= 15; j++) {
+        enemymovement[j] = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . . . . . . . . . . . . . 
+            . . . . . . 2 2 2 2 . . . . . . 
+            . . . . . . 2 2 2 2 . . . . . . 
+            . . . . . . 2 2 2 2 . . . . . . 
+            . . . . . . 2 2 2 2 . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -277,6 +301,21 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
             `, SpriteKind.enemymove)
     }
     tiles.placeOnTile(enemymovement[0], tiles.getTileLocation(1, 4))
+    tiles.placeOnTile(enemymovement[1], tiles.getTileLocation(1, 7))
+    tiles.placeOnTile(enemymovement[2], tiles.getTileLocation(1, 10))
+    tiles.placeOnTile(enemymovement[3], tiles.getTileLocation(1, 1))
+    tiles.placeOnTile(enemymovement[4], tiles.getTileLocation(4, 7))
+    tiles.placeOnTile(enemymovement[5], tiles.getTileLocation(4, 10))
+    tiles.placeOnTile(enemymovement[15], tiles.getTileLocation(4, 1))
+    tiles.placeOnTile(enemymovement[6], tiles.getTileLocation(4, 4))
+    tiles.placeOnTile(enemymovement[7], tiles.getTileLocation(7, 4))
+    tiles.placeOnTile(enemymovement[8], tiles.getTileLocation(7, 7))
+    tiles.placeOnTile(enemymovement[9], tiles.getTileLocation(7, 10))
+    tiles.placeOnTile(enemymovement[10], tiles.getTileLocation(7, 1))
+    tiles.placeOnTile(enemymovement[11], tiles.getTileLocation(10, 7))
+    tiles.placeOnTile(enemymovement[12], tiles.getTileLocation(10, 10))
+    tiles.placeOnTile(enemymovement[13], tiles.getTileLocation(10, 1))
+    tiles.placeOnTile(enemymovement[14], tiles.getTileLocation(10, 4))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.leaver2, function (sprite, otherSprite) {
     tiles.setTileAt(tiles.getTileLocation(9, 6), assets.tile`myTile8`)
@@ -285,6 +324,33 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.leaver2, function (sprite, other
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     tiles.placeOnTile(playerRed, tiles.getTileLocation(30, 30))
+})
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.enemymove, function (sprite, otherSprite) {
+    menymoveplease += 1
+    otherSprite.y += 15
+    otherSprite.x += 15
+    if (menymoveplease == 1) {
+        pause(20)
+        sprite.setVelocity(70, 0)
+    }
+    if (menymoveplease == 2) {
+        pause(35)
+        sprite.setVelocity(0, 70)
+    }
+    if (menymoveplease == 3) {
+        pause(35)
+        sprite.setVelocity(-70, 0)
+    }
+    if (menymoveplease == 4) {
+        pause(35)
+        sprite.setVelocity(0, -70)
+    }
+    if (menymoveplease > 4) {
+        menymoveplease = 0
+    }
+    pause(500)
+    otherSprite.y += -15
+    otherSprite.x += -15
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     tiles.placeOnTile(playerRed, tiles.getTileLocation(4, 31))
@@ -300,16 +366,16 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, l
     room2compleate = 1
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenEast, function (sprite, location) {
-    if (1 == bottom_key_v) {
+    if (1 <= bottom_key_v) {
         tiles.destroySpritesOfKind(SpriteKind.Key3)
     }
-    if (1 == top_key_v) {
+    if (1 <= top_key_v) {
         tiles.destroySpritesOfKind(SpriteKind.Key)
     }
     if (room2compleate == 0) {
-        tiles.setTilemap(tilemap`level6`)
+        tiles.setTilemap(tilemap`level4`)
     } else {
-        tiles.setTilemap(tilemap`level7`)
+        tiles.setTilemap(tilemap`level5`)
     }
     tiles.placeOnTile(sprite, tiles.getTileLocation(1, 4))
     yes = sprites.create(img`
@@ -400,76 +466,75 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key3, function (sprite, otherSpr
     bottom_key_v += -1
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    tiles.setTilemap(tilemap`level1`)
-    side_door += 1
-    map_number += 1
-    tiles.placeOnTile(sprite, tiles.getTileLocation(17, 1))
-    if (right_key_v == 1) {
-        right_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key2)
-        tiles.placeOnTile(right_key, tiles.getTileLocation(26, 18))
+    if (1 <= gate_key) {
+        tiles.setTilemap(tilemap`level1`)
+        side_door += 1
+        map_number += 1
+        tiles.placeOnTile(sprite, tiles.getTileLocation(17, 1))
+        if (right_key_v == 1) {
+            right_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key2)
+            tiles.placeOnTile(right_key, tiles.getTileLocation(26, 18))
+        }
+        if (bottom_key_v == 1) {
+            bottom_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key3)
+            tiles.placeOnTile(bottom_key, tiles.getTileLocation(30, 30))
+        }
+        if (top_key_v == 1) {
+            top_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key)
+            tiles.placeOnTile(top_key, tiles.getTileLocation(1, 1))
+        }
     }
-    if (bottom_key_v == 1) {
-        bottom_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key3)
-        tiles.placeOnTile(bottom_key, tiles.getTileLocation(30, 30))
-    }
-    if (top_key_v == 1) {
-        top_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key)
-        tiles.placeOnTile(top_key, tiles.getTileLocation(1, 1))
-    }
-    top_key_v += -1
-    right_key_v += -1
-    bottom_key_v += -1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
     otherSprite.destroy(effects.disintegrate, 500)
@@ -553,91 +618,87 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.buttonOrange, function (s
     tiles.setTileAt(tiles.getTileLocation(8, 5), sprites.dungeon.floorLight2)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenWest, function (sprite, location) {
-    tiles.setTilemap(tilemap`level1`)
-    tiles.placeOnTile(sprite, tiles.getTileLocation(30, 9))
-    map_number += 1
-    right_door += 1
-    if (right_key_v == 1) {
-        right_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key2)
-        tiles.placeOnTile(right_key, tiles.getTileLocation(26, 18))
+    if (1 <= room2compleate) {
+        tiles.setTilemap(tilemap`level1`)
+        tiles.placeOnTile(sprite, tiles.getTileLocation(30, 9))
+        map_number += 1
+        right_door += 1
+        if (right_key_v == 1) {
+            right_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key2)
+            tiles.placeOnTile(right_key, tiles.getTileLocation(26, 18))
+        }
+        if (bottom_key_v == 1) {
+            bottom_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key3)
+            tiles.placeOnTile(bottom_key, tiles.getTileLocation(30, 30))
+        }
+        if (top_key_v == 1) {
+            top_key = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . f f f f f f . . . . . . 
+                . . . f 5 5 5 5 d d f . . . . . 
+                . . f 5 5 4 4 4 4 5 d f . . . . 
+                . . f 5 5 . . . . 5 4 f . . . . 
+                . . . f 4 4 4 5 5 4 f . . . . . 
+                . . . . f f 5 5 f f . . . . . . 
+                . . . . . f 5 d f . . . . . . . 
+                . . . . . f 5 d f f . . . . . . 
+                . . . . . f 5 5 d d f . . . . . 
+                . . . . . f 5 5 4 f . . . . . . 
+                . . . . . f 5 5 5 d f . . . . . 
+                . . . . . f 5 4 f f . . . . . . 
+                . . . . . . f f . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Key)
+            tiles.placeOnTile(top_key, tiles.getTileLocation(1, 1))
+        }
     }
-    if (bottom_key_v == 1) {
-        bottom_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key3)
-        tiles.placeOnTile(bottom_key, tiles.getTileLocation(30, 30))
-    }
-    if (top_key_v == 1) {
-        top_key = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 5 5 5 5 d d f . . . . . 
-            . . f 5 5 4 4 4 4 5 d f . . . . 
-            . . f 5 5 . . . . 5 4 f . . . . 
-            . . . f 4 4 4 5 5 4 f . . . . . 
-            . . . . f f 5 5 f f . . . . . . 
-            . . . . . f 5 d f . . . . . . . 
-            . . . . . f 5 d f f . . . . . . 
-            . . . . . f 5 5 d d f . . . . . 
-            . . . . . f 5 5 4 f . . . . . . 
-            . . . . . f 5 5 5 d f . . . . . 
-            . . . . . f 5 4 f f . . . . . . 
-            . . . . . . f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Key)
-        tiles.placeOnTile(top_key, tiles.getTileLocation(1, 1))
-    }
-    top_key_v += -1
-    right_key_v += -1
-    bottom_key_v += -1
-})
-sprites.onCreated(SpriteKind.Player, function (sprite) {
-	
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenNorth, function (sprite, location) {
-    if (1 == right_key_v) {
+    if (1 <= right_key_v) {
         tiles.destroySpritesOfKind(SpriteKind.Key2)
     }
-    if (1 == bottom_key_v) {
+    if (1 <= bottom_key_v) {
         tiles.destroySpritesOfKind(SpriteKind.Key3)
     }
     if (gate_key < 1) {
         tiles.setTilemap(tilemap`level2`)
     } else {
-        tiles.setTilemap(tilemap`level4`)
+        tiles.setTilemap(tilemap`level3`)
     }
     tiles.placeOnTile(sprite, tiles.getTileLocation(8, 14))
     scene.setBackgroundColor(0)
@@ -656,6 +717,8 @@ let yes3: Sprite = null
 let yes2: Sprite = null
 let yes: Sprite = null
 let bottom_key_v = 0
+let ghosts: Sprite = null
+let menymoveplease = 0
 let statusbar: StatusBarSprite = null
 let right_key_v = 0
 let top_key_v = 0
@@ -664,14 +727,14 @@ let room2compleate = 0
 let map_number = 0
 let gate_key = 0
 let playerRed: Sprite = null
-let enemy_movment = 0
-let goast2 = null
-let goast3 = null
-let goast4 = null
-let goast7 = null
-let goast8 = null
-let goast9 = null
 let goast10 = null
+let goast9 = null
+let goast8 = null
+let goast7 = null
+let goast4 = null
+let goast3 = null
+let goast2 = null
+let enemy_movment = 0
 playerRed = sprites.create(img`
     . . f f f f f f f f . . 
     . f f f 2 2 2 2 f f f . 
