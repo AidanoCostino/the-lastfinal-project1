@@ -18,49 +18,96 @@ sprites.onCreated(SpriteKind.Enemy, function (sprite) {
     animation.runImageAnimation(
     sprite,
     [img`
-        . . . f f f f . . . 
-        . . f 1 a c c f . . 
-        . f 1 a a a c c f . 
-        . f a a a a c c c f 
-        f a a a a a c c c f 
-        . f f f f f f f f . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        `,img`
-        . . f f . . . . . . 
-        . f a c f . . . . . 
-        . f 1 c c f . . . . 
-        f 1 a c c f . . . . 
-        f a a a c c f . . . 
-        f a a a c c f . . . 
-        f a a a a c f . . . 
-        . f f f f f . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        f 8 8 8 8 6 6 f . . 
+        f 8 8 8 8 8 6 6 f . 
+        . f 8 8 8 8 f f . . 
+        . . f f f f . . . . 
         `,img`
         . . . f f . . . . . 
-        . . f c c f . . . . 
-        . f a 1 c c f . . . 
-        . f 1 c c c f . . . 
-        f a a c c c f . . . 
-        f a a a c c f . . . 
-        f a a a c f . . . . 
-        f a a a f . . . . . 
-        . f f f . . . . . . 
-        . . . . . . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f 8 8 8 6 6 f . . 
+        . . f 8 8 8 6 f . . 
+        . . . f f 8 6 f . . 
+        . . . . f f f . . . 
         `,img`
-        . . f f f f f f . . 
-        . f 1 a a c c c f . 
-        f 1 a a a a a c c f 
-        f a a a a a c c c f 
-        . f f f f f f f f . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f f 8 8 6 6 f . . 
+        . . . f f 6 6 f . . 
+        . . f 8 8 6 f f . . 
+        . . . f f f f . . . 
+        `,img`
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f f 8 8 6 f f . . 
+        . . f 8 8 f . . . . 
+        . . . f 8 8 f . . . 
+        . . . . f f . . . . 
+        `,img`
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f f 8 8 6 f f . . 
+        . . f 8 8 f . . . . 
+        . . f 8 8 f . . . . 
+        . . . f f . . . . . 
+        `,img`
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f 8 8 8 6 9 f . . 
+        . . f 8 8 6 f . . . 
+        . . . f 8 8 f . . . 
+        . . . . f f . . . . 
+        `,img`
+        . . . f f . . . . . 
+        . . f 9 9 f . . . . 
+        . . f 9 9 9 f f . . 
+        . f 9 6 6 9 9 9 f . 
+        f 8 1 6 1 9 9 9 9 f 
+        f 8 8 8 6 6 9 9 9 f 
+        f 8 8 1 6 6 9 9 f . 
+        f 8 8 8 6 6 9 9 f . 
+        . f 8 8 8 6 9 f . . 
+        . . f 8 8 6 9 f . . 
+        . . . f 8 8 9 9 f . 
+        . . . . f f f f . . 
         `],
     200,
     true
@@ -280,7 +327,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
         . f f f f f f . 
         `, SpriteKind.Enemy)
     tiles.placeOnTile(ghosts, tiles.getTileLocation(1, 3))
-    for (let j = 0; j <= 15; j++) {
+    for (let j = 0; j <= 3; j++) {
         enemymovement[j] = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -288,10 +335,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            . . . . . . 2 2 2 2 . . . . . . 
-            . . . . . . 2 2 2 2 . . . . . . 
-            . . . . . . 2 2 2 2 . . . . . . 
-            . . . . . . 2 2 2 2 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . c c . . . . . . . 
+            . . . . . . . c c . . . . . . . 
+            . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -300,22 +347,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.enemymove)
     }
-    tiles.placeOnTile(enemymovement[0], tiles.getTileLocation(1, 4))
-    tiles.placeOnTile(enemymovement[1], tiles.getTileLocation(1, 7))
-    tiles.placeOnTile(enemymovement[2], tiles.getTileLocation(1, 10))
-    tiles.placeOnTile(enemymovement[3], tiles.getTileLocation(1, 1))
-    tiles.placeOnTile(enemymovement[4], tiles.getTileLocation(4, 7))
-    tiles.placeOnTile(enemymovement[5], tiles.getTileLocation(4, 10))
-    tiles.placeOnTile(enemymovement[15], tiles.getTileLocation(4, 1))
-    tiles.placeOnTile(enemymovement[6], tiles.getTileLocation(4, 4))
-    tiles.placeOnTile(enemymovement[7], tiles.getTileLocation(7, 4))
-    tiles.placeOnTile(enemymovement[8], tiles.getTileLocation(7, 7))
-    tiles.placeOnTile(enemymovement[9], tiles.getTileLocation(7, 10))
-    tiles.placeOnTile(enemymovement[10], tiles.getTileLocation(7, 1))
-    tiles.placeOnTile(enemymovement[11], tiles.getTileLocation(10, 7))
-    tiles.placeOnTile(enemymovement[12], tiles.getTileLocation(10, 10))
-    tiles.placeOnTile(enemymovement[13], tiles.getTileLocation(10, 1))
-    tiles.placeOnTile(enemymovement[14], tiles.getTileLocation(10, 4))
+    tiles.placeOnTile(enemymovement[0], tiles.getTileLocation(1, 1))
+    tiles.placeOnTile(enemymovement[1], tiles.getTileLocation(1, 4))
+    tiles.placeOnTile(enemymovement[2], tiles.getTileLocation(4, 4))
+    tiles.placeOnTile(enemymovement[3], tiles.getTileLocation(4, 1))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.leaver2, function (sprite, otherSprite) {
     tiles.setTileAt(tiles.getTileLocation(9, 6), assets.tile`myTile8`)
@@ -330,25 +365,23 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.enemymove, function (sprite, othe
     otherSprite.y += 15
     otherSprite.x += 15
     if (menymoveplease == 1) {
-        pause(20)
+        pause(80)
         sprite.setVelocity(70, 0)
     }
     if (menymoveplease == 2) {
-        pause(35)
+        pause(77)
         sprite.setVelocity(0, 70)
     }
     if (menymoveplease == 3) {
-        pause(35)
+        pause(90)
         sprite.setVelocity(-70, 0)
     }
     if (menymoveplease == 4) {
-        pause(35)
+        pause(60)
         sprite.setVelocity(0, -70)
-    }
-    if (menymoveplease > 4) {
         menymoveplease = 0
     }
-    pause(500)
+    pause(200)
     otherSprite.y += -15
     otherSprite.x += -15
 })
