@@ -15,103 +15,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     tiles.setTileAt(tiles.getTileLocation(8, 10), sprites.dungeon.floorLight2)
 })
 sprites.onCreated(SpriteKind.Enemy, function (sprite) {
-    animation.runImageAnimation(
-    sprite,
-    [img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        f 8 8 8 8 6 6 f . . 
-        f 8 8 8 8 8 6 6 f . 
-        . f 8 8 8 8 f f . . 
-        . . f f f f . . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f 8 8 8 6 6 f . . 
-        . . f 8 8 8 6 f . . 
-        . . . f f 8 6 f . . 
-        . . . . f f f . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f f 8 8 6 6 f . . 
-        . . . f f 6 6 f . . 
-        . . f 8 8 6 f f . . 
-        . . . f f f f . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f f 8 8 6 f f . . 
-        . . f 8 8 f . . . . 
-        . . . f 8 8 f . . . 
-        . . . . f f . . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f f 8 8 6 f f . . 
-        . . f 8 8 f . . . . 
-        . . f 8 8 f . . . . 
-        . . . f f . . . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f 8 8 8 6 9 f . . 
-        . . f 8 8 6 f . . . 
-        . . . f 8 8 f . . . 
-        . . . . f f . . . . 
-        `,img`
-        . . . f f . . . . . 
-        . . f 9 9 f . . . . 
-        . . f 9 9 9 f f . . 
-        . f 9 6 6 9 9 9 f . 
-        f 8 1 6 1 9 9 9 9 f 
-        f 8 8 8 6 6 9 9 9 f 
-        f 8 8 1 6 6 9 9 f . 
-        f 8 8 8 6 6 9 9 f . 
-        . f 8 8 8 6 9 f . . 
-        . . f 8 8 6 9 f . . 
-        . . . f 8 8 9 9 f . 
-        . . . . f f f f . . 
-        `],
-    200,
-    true
-    )
     sprite.setVelocity(0, -70)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.buttonPink, function (sprite, location) {
@@ -320,11 +223,22 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
     statusbar.attachToSprite(playerRed)
     menymoveplease = 0
     ghosts = sprites.create(img`
-        . . f f f f . . 
-        . f 1 a c c f . 
-        f 1 a a a c c f 
-        f a a a a c c f 
-        . f f f f f f . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f 1 1 1 1 f f . . . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . f d 1 1 1 1 1 1 1 1 d f . . 
+        . . f d d d 1 1 1 1 d d d f . . 
+        . . f b d b f d d f b d b f . . 
+        . . f c d c f 1 1 f c d c f . . 
+        . . . f b 1 1 1 1 1 1 b f . . . 
+        . . f f f c d b 1 b d f f f . . 
+        . f 1 1 1 c b f b f c 1 1 1 f . 
+        . f 1 b 1 1 f f f f 1 1 b 1 f . 
+        . f b f b f f f f f f b f b f . 
+        . . . . . . . f f f . . . . . . 
+        . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
     tiles.placeOnTile(ghosts, tiles.getTileLocation(1, 3))
     for (let j = 0; j <= 3; j++) {
@@ -365,19 +279,19 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.enemymove, function (sprite, othe
     otherSprite.y += 15
     otherSprite.x += 15
     if (menymoveplease == 1) {
-        pause(80)
+        pause(87)
         sprite.setVelocity(70, 0)
     }
     if (menymoveplease == 2) {
-        pause(77)
+        pause(70)
         sprite.setVelocity(0, 70)
     }
     if (menymoveplease == 3) {
-        pause(90)
+        pause(87)
         sprite.setVelocity(-70, 0)
     }
     if (menymoveplease == 4) {
-        pause(60)
+        pause(70)
         sprite.setVelocity(0, -70)
         menymoveplease = 0
     }
